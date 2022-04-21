@@ -1,0 +1,16 @@
+{
+  "name": "challenge-alkemy-nodejs-express",
+  "version": "1.0.0",
+  "description": "Challenge para Alkemy usando NodeJS & Express",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app.js"
+  },
+  "author": "Josdel Paez",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.3",
+    "nodemon": "^2.0.15",
+    "sequelize": "^6.19.0"
+  }
+}
