@@ -1,8 +1,13 @@
-'strict use'
 const express = require('express');
 const router = express.Router();
 
+const AuthController = require('../controllers/AuthController');
 
-router.get('/', (req,res) => res.json({hello:'hellow'}));
+// Home
+router.get('/', (req, res) => res.json({ hello: "World" }));
 
-module.exports = router
+
+// Auth (Register & Login)
+router.post('/auth/login', AuthController.Login);
+router.post('/auth/register', AuthController.Register);
+module.exports = router;

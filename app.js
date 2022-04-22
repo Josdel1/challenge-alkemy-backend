@@ -2,28 +2,23 @@
 
 const express = require('express');
 const app = express();
-const { Connection } = require('./configs/database');
 const router = require('./routes/routes');
+const { sequelize } = require('./models/index')
 
-const HOST = process.env.HOST || '0.0.0.0';
-const PORT = process.env.PORT || 3030;
+const HOST = process.env.HOST;
+const PORT = process.env.PORT;
 
-const onConnect = () => {
-	return new Promise((resolve, reject)=> {
-		const { connection } = new Connection();
+// Middlewares
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
-		connection.authenticate()
-			.then( () => resolve('DATABASE CONNECTION ESTABLISHED') )
-			.catch( (error) => reject(`Error ${error}`) );
-	});
-}
+// Rutas
+app.use(router);
 
-onConnect()
-.then( async () => {
-    app.use('/', router );
+app.listen(PORT, function () {
+  console.log(`Example app listening on http://${HOST}:${PORT}`);
 
-    app.listen(PORT, () => { 
-        console.log(`server running http://${HOST}:${PORT}`)
-    });
-})
-.catch( (error) => console.log(error));
+  sequelize.authenticate().then(() => {
+      console.log('Nos hemos conectado a la base de datos!!!!!');
+  })
+});

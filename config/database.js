@@ -1,22 +1,19 @@
-'use strict'
-
-require('dotenv').config();
-
-const { DB_NAME, DB_USER, DB_PASS, DB_PORT, DB_HOST } = process.env;
+require('dotenv').config()
 
 module.exports = {
-    username: DB_USER,
-    password: DB_PASS,
-    database: DB_NAME,
-    host: DB_HOST,
-    port: DB_PORT,
-    dialect: 'mysql',
 
+  // Configuracion de DB
+  username: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  host: process.env.DB_HOST,
+  dialect: process.env.DB_DIALECT,
 
-    seederStorage: 'sequelize',
-    seederStorageTableName: 'seeds',
+  // Configurar Seeds
+  seederStorage: "sequelize",
+  seederStorageTableName: "seeds",
 
-    migrationStorage: 'sequelize',
-    migrationStorageTableName: 'migrations',
-
+  // Configuracion de Migrations
+  migrationStorage: "sequelize",
+  migrationStorageTableName: "migrations"
 }
