@@ -18,13 +18,10 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       weight: {
-        type: Sequelize.STRING
-      },
-      history: {
-        type: Sequelize.STRING
-      },
-      movieID: {
         type: Sequelize.INTEGER
+      },
+      story: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
