@@ -12,14 +12,13 @@ module.exports = {
             where: {
                 username: username,
             }
-        }).then( user => {
-            
-            if (!user) {
+        }).then( data => {
+            if (!data) {
                 res.status(400).json({
-                    msg:'username incorrect'
+                    msg: 'ups!'
                 })
             } else {
-                if ( bcrypt.compareSync( password, user.password )) {
+                if ( bcrypt.compareSync( password, data.password )) {
 
                     let token = jwt.sign( { user:username }, authConfig.secret, {
                         expiresIn: authConfig.expires
@@ -39,22 +38,23 @@ module.exports = {
     },
 
     Register(req, res) {
+  
         User.create({
-            username:req.body.username,
-            password:bcrypt.hashSync(req.body.password, Number.parseInt(authConfig.rounds)),
-            email: req.body.email,
-        }).then( (user) => {
-            let token = jwt.sign( { user:user }, authConfig.secret, {
-                expiresIn: authConfig.expires, //why not?
-            })
+                username:req.body.username,
+                password:bcrypt.hashSync(req.body.password, Number.parseInt(authConfig.rounds)),
+                email: req.body.email,
+            }).then( (user) => {
+                let token = jwt.sign( { user:user }, authConfig.secret, {
+                    expiresIn: authConfig.expires, //why not?
+                })
 
-            res.json( {
-                user:user,
-                token: token,
-            } )
-        } ).catch( err => {
-            res.status(500).json(err);
-        })
+                res.json( {
+                    user:user,
+                    token: token,
+                } )
+            } ).catch( err => {
+                res.status(500).json(err);
+            })
     }
 
 

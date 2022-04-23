@@ -17,6 +17,10 @@ module.exports = (sequelize, DataTypes) => {
     username: {
       type:DataTypes.STRING,
       allowNull: false,
+      unique: {
+        args: true,
+        msg: 'username exist'
+      },
       validate: {
         isAlpha: {
           msg: 'the user name can only contain letters',
