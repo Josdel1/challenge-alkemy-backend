@@ -53,7 +53,34 @@ module.exports = {
 
         } ).catch( err => res.status(400).json(err) );
     },
-    editCharacter(req,res){
+    async editCharacter(req,res){
+        const Id = req.params.id;
+        const existCharacter = await Character.findOne({
+            where: {
+                id:Id
+            }
+        });
+
+        if(existCharacter){
+            Character.update( {
+                img: req.body.img,
+                name: req.body.name,
+                age: req.body.age,
+                weight: req.body.weight,
+                story: req.body.story
+            },
+            {
+                where: 
+                {
+                    id:Id
+                }
+                
+            })
+            .then( () => res.status(200).json({msg:'character successfully updated'}))
+            .catch( err => res.status(400).json(error));
+        }else{
+            res.status(400).json('character not found')
+        }
 
     },
     async deleteCharacter(req,res){
