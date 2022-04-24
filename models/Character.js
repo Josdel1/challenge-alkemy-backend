@@ -1,6 +1,7 @@
 'use strict';
+
 const { Model } = require('sequelize');
-const { Movie } = require('../models/index');
+
 module.exports = (sequelize, DataTypes) => {
   class Character extends Model {
     /**
@@ -13,9 +14,22 @@ module.exports = (sequelize, DataTypes) => {
   }
   Character.init({
     img: DataTypes.STRING,
-    name: DataTypes.STRING,
-    age: DataTypes.INTEGER,
-    weight: DataTypes.INTEGER,
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    age: {
+      type:DataTypes.INTEGER,
+      validate:{
+        isInt: true
+      }
+    },
+    weight: {
+      type:DataTypes.FLOAT,
+      validate:{
+        isFloat: true
+      }
+    },
     story: DataTypes.STRING
   }, {
     sequelize,

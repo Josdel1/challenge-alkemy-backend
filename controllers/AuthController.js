@@ -43,13 +43,13 @@ module.exports = {
                 username:req.body.username,
                 password:bcrypt.hashSync(req.body.password, Number.parseInt(authConfig.rounds)),
                 email: req.body.email,
-            }).then( (user) => {
-                let token = jwt.sign( { user:user }, authConfig.secret, {
+            }).then( (username) => {
+                let token = jwt.sign( { username:username }, authConfig.secret, {
                     expiresIn: authConfig.expires, //why not?
                 })
 
                 res.json( {
-                    user:user,
+                    username:username,
                     token: token,
                 } )
             } ).catch( err => {

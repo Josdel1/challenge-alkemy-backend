@@ -18,7 +18,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       weight: {
-        type: Sequelize.INTEGER
+        type: Sequelize.FLOAT
       },
       story: {
         type: Sequelize.STRING
