@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const AuthController = require('../controllers/AuthController');
+const auth = require('../middlewares/auth');
 
 const {
     getAllCharacters,
@@ -21,10 +22,10 @@ router.post('/auth/register', AuthController.Register);
 
 //Characters
 
-router.get('/characters', getAllCharacters);
-router.get('/characters/:id', getCharacter);
-router.post('/characters/create', createCharacter);
-router.put('/characters/edit/:id', editCharacter);
-router.delete('/characters/delete/:id', deleteCharacter);
+router.get('/characters', auth, getAllCharacters);
+router.get('/characters/:id', auth, getCharacter);
+router.post('/characters/create', auth, createCharacter);
+router.put('/characters/edit/:id', auth, editCharacter);
+router.delete('/characters/delete/:id', auth, deleteCharacter);
 
 module.exports = router;
