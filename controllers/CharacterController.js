@@ -3,18 +3,20 @@ const { Character,Movie } = require('../models/index');
 module.exports = {
     getAllCharacters(req,res){
         Character.findAll({
+            where: req.query,
             include: {
                 model: Movie,
                 as: "Movies",
-                attributes:['title',]
+                attributes:['id','title',]
             },
-            attributes: ['name', 'age']
+            attributes: ['id','name', 'age']
         })
         .then( (characters) => {
             res.status(200).json({
                 'Characters':characters
             })
         } )
+        .catch( err => res.status(400).json({msg:err}))
     },
     getCharacter(req,res){
         Character.findByPk(req.params.id,{
